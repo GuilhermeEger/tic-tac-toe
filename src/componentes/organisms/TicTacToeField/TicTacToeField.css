@@ -1,0 +1,14 @@
+.fieldStyle {
+    display: flex;
+}
+
+.gameStyle {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.winnerScoreboard {
+    margin-top: 20px;
+}
