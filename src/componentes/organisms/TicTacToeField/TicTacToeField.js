@@ -1,12 +1,24 @@
 import React, { useEffect, useState } from "react";
 import ImputSquare from "../../atoms/ImputSquare/ImputSquare";
 import "./TicTacToeField.css";
+import WinnerPanel from "../../molecules/WinnerPanel/WinnerPanel";
 
 function TicTacToeField(props) {
   const [xPlayerTurn, setXplayerTurn] = useState(true);
-  const [fieldsValues, setValue] = useState(Array(9).fill(""));
+  const [fieldsValues, setValues] = useState(Array(9).fill(null));
   const [gameWinner, setGameWinner] = useState("");
   const [endGameText, setEndGameText] = useState("");
+  const [showingTrophy, setShowingTrophy] = useState(false);
+
+  function showTrophy() {
+    setShowingTrophy(true);
+  }
+
+  function restartGame() {
+    setValues(Array(9).fill(null));
+    setShowingTrophy(false);
+    setGameWinner(false);
+  }
 
   function changeValue(i) {
     if (gameWinner) return;
@@ -15,7 +27,7 @@ function TicTacToeField(props) {
     let gameFields = fieldsValues;
     gameFields[i] = xPlayerTurn ? "X" : "O";
 
-    setValue(gameFields);
+    setValues(gameFields);
     setXplayerTurn(!xPlayerTurn);
     checkWinner();
   }
@@ -41,6 +53,7 @@ function TicTacToeField(props) {
         fieldsValues[a] == fieldsValues[c]
       ) {
         setEndGameText(writeEndGameText(fieldsValues[a]));
+        showTrophy();
         return setGameWinner(fieldsValues[a]);
       }
     }
@@ -55,7 +68,7 @@ function TicTacToeField(props) {
 
   function writeEndGameText(winner) {
     if (winner == "draw") return "Oh, a draw!";
-    else return "Player playing with " + winner + " Win!";
+    else return "Player " + winner + " Win!";
   }
 
   return (
@@ -105,8 +118,10 @@ function TicTacToeField(props) {
             />
           </div>
         </div>
-        {endGameText && <div className="winnerScoreboard">{endGameText}</div>}
       </div>
+      {showingTrophy && (
+        <WinnerPanel closeText={"Restart"} close={() => restartGame()} winnerText={endGameText} />
+      )}
     </div>
   );
 }

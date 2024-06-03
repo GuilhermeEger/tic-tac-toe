@@ -1,4 +1,4 @@
-.square {
+.oldsquare {
     width: 100px;
     height: 100px;
     border: 1px solid black;
@@ -7,3 +7,61 @@
     justify-content: center;
     cursor: pointer;
 }
+
+.square {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 3px;
+    margin: 3px;
+    background: #4b33ff;        
+}
+
+.square:hover{
+    opacity: 80%
+}
+
+.O {
+    width: 50%;
+    height: 50%;
+    border: 12px solid white;
+    border-radius: 100px;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.XWrap{
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.X {
+    width: 80%;
+    height: 10px;
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.rotate45 {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  
+.rotateNeg45 {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
