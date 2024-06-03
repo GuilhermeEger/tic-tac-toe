@@ -9,10 +9,11 @@
 .winnerText {
     transform: translate(-50%, -50%);
     position: absolute;
-    top: calc(50% - 55px);
+    top: 35px;
     left: 50%;
     color: white;
     font-weight: bold;
+    font-size: 25px;
 }
 
 .animation {
@@ -24,6 +25,11 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.confetti {
+    z-index: 0;
 }
 
 .winnerModal {
@@ -43,6 +49,7 @@
     cursor: pointer;
     color: white;
     font-weight: bold;
+    z-index: 2;
 }
 
 .modalX {

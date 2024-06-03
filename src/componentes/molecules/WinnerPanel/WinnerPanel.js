@@ -8,7 +8,8 @@ function WinnerPanel(props) {
       <div className="wrapPanel">
         <div className="modalX" onClick={() => props.close()}>x</div>
         <div className="winnerText">{props.winnerText}</div>
-        <AnimationRender className="animation" name={"winner"} />
+        <AnimationRender className="animation" name={props.gameDraw ? "handshake" : "winner"} />
+        {!props.gameDraw && <AnimationRender className="animation confetti" name={"confetti"} />}
         <div onClick={() => props.close()} className="close">{props.closeText}</div>
       </div>
     </div>

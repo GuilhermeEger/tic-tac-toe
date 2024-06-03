@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import ImputSquare from "../../atoms/ImputSquare/ImputSquare";
-import "./TicTacToeField.css";
+import ImputSquare from "../../atoms/ImputSquare/ImputSquare"
+import "./TicTacToeGame.css";
 import WinnerPanel from "../../molecules/WinnerPanel/WinnerPanel";
+import TicTacToeField from "../../atoms/TicTacToeField/TicTacToeField";
 
-function TicTacToeField(props) {
+function TicTacToeGame(props) {
   const [xPlayerTurn, setXplayerTurn] = useState(true);
   const [fieldsValues, setValues] = useState(Array(9).fill(null));
   const [gameWinner, setGameWinner] = useState("");
@@ -17,7 +18,7 @@ function TicTacToeField(props) {
   function restartGame() {
     setValues(Array(9).fill(null));
     setShowingTrophy(false);
-    setGameWinner(false);
+    setGameWinner("");
   }
 
   function changeValue(i) {
@@ -62,8 +63,11 @@ function TicTacToeField(props) {
       fieldsValues.every(
         (field) => field !== "" && field !== undefined && field !== null
       )
-    )
+    ) {
+      showTrophy();
+      setGameWinner("draw")
       return setEndGameText(writeEndGameText("draw"));
+    }
   }
 
   function writeEndGameText(winner) {
@@ -73,57 +77,17 @@ function TicTacToeField(props) {
 
   return (
     <div className="gameStyle">
-      <div>
-        <div className="fieldStyle">
-          <div>
-            <ImputSquare
-              onClick={() => changeValue(0)}
-              value={fieldsValues[0]}
-            />
-            <ImputSquare
-              onClick={() => changeValue(1)}
-              value={fieldsValues[1]}
-            />
-            <ImputSquare
-              onClick={() => changeValue(2)}
-              value={fieldsValues[2]}
-            />
-          </div>
-          <div>
-            <ImputSquare
-              onClick={() => changeValue(3)}
-              value={fieldsValues[3]}
-            />
-            <ImputSquare
-              onClick={() => changeValue(4)}
-              value={fieldsValues[4]}
-            />
-            <ImputSquare
-              onClick={() => changeValue(5)}
-              value={fieldsValues[5]}
-            />
-          </div>
-          <div>
-            <ImputSquare
-              onClick={() => changeValue(6)}
-              value={fieldsValues[6]}
-            />
-            <ImputSquare
-              onClick={() => changeValue(7)}
-              value={fieldsValues[7]}
-            />
-            <ImputSquare
-              onClick={() => changeValue(8)}
-              value={fieldsValues[8]}
-            />
-          </div>
-        </div>
-      </div>
+      <TicTacToeField fieldsValues={fieldsValues} changeValue={(value) => changeValue(value)}/>
       {showingTrophy && (
-        <WinnerPanel closeText={"Restart"} close={() => restartGame()} winnerText={endGameText} />
+        <WinnerPanel
+          gameDraw={gameWinner == "draw"}
+          closeText={"Restart"}
+          close={() => restartGame()}
+          winnerText={endGameText}
+        />
       )}
     </div>
   );
 }
 
-export default TicTacToeField;
+export default TicTacToeGame;
